@@ -54,17 +54,22 @@ def handler(event: dict, context) -> dict:
 
     msg.attach(MIMEText(html, 'html'))
 
+    print(f'SMTP: password_len={len(smtp_password) if smtp_password else 0}, from={from_email}')
+
     try:
-        with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
+        with smtplib.SMTP_SSL('smtp.yandex.ru', 465, timeout=20) as server:
             server.login(from_email, smtp_password)
             server.sendmail(from_email, to_email, msg.as_string())
-    except smtplib.SMTPAuthenticationError:
+        print('SMTP: email sent OK')
+    except smtplib.SMTPAuthenticationError as e:
+        print(f'SMTP AUTH ERROR: {e}')
         return {
             'statusCode': 500,
             'headers': {'Access-Control-Allow-Origin': '*'},
             'body': json.dumps({'error': 'Ошибка авторизации почты. Проверьте пароль приложения.'})
         }
     except Exception as e:
+        print(f'SMTP ERROR: {type(e).__name__}: {e}')
         return {
             'statusCode': 500,
             'headers': {'Access-Control-Allow-Origin': '*'},
