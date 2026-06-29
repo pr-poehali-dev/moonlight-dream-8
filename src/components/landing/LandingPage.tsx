@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import Section from './Section'
 import Layout from './Layout'
+import ApplicationForm from './ApplicationForm'
 import { sections } from './sections'
 
 export default function LandingPage() {
@@ -67,7 +68,11 @@ export default function LandingPage() {
             key={section.id}
             {...section}
             isActive={index === activeSection}
-          />
+          >
+            {section.id === 'join' && (
+              <ApplicationForm isActive={index === activeSection} />
+            )}
+          </Section>
         ))}
       </div>
     </Layout>
