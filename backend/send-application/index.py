@@ -33,8 +33,8 @@ def handler(event: dict, context) -> dict:
         }
 
     smtp_password = os.environ['SMTP_PASSWORD']
-    from_email = 'buh290089@yandex.ru'
-    to_email = 'buh290089@yandex.ru'
+    from_email = 'kaprall8906@yandex.ru'
+    to_email = 'kaprall8906@yandex.ru'
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = f'Новая заявка на ГНБ от {name}'
