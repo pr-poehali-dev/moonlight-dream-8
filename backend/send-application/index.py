@@ -29,7 +29,7 @@ def handler(event: dict, context) -> dict:
         return {
             'statusCode': 400,
             'headers': {'Access-Control-Allow-Origin': '*'},
-            'body': {'error': 'Имя и телефон обязательны'}
+            'body': json.dumps({'error': 'Имя и телефон обязательны'})
         }
 
     smtp_password = os.environ['SMTP_PASSWORD']
@@ -50,12 +50,25 @@ def handler(event: dict, context) -> dict:
 
     msg.attach(MIMEText(html, 'html'))
 
-    with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
-        server.login(from_email, smtp_password)
-        server.sendmail(from_email, to_email, msg.as_string())
+    try:
+        with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
+            server.login(from_email, smtp_password)
+            server.sendmail(from_email, to_email, msg.as_string())
+    except smtplib.SMTPAuthenticationError:
+        return {
+            'statusCode': 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': 'Ошибка авторизации почты. Проверьте пароль приложения.'})
+        }
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': f'Не удалось отправить письмо: {str(e)}'})
+        }
 
     return {
         'statusCode': 200,
         'headers': {'Access-Control-Allow-Origin': '*'},
-        'body': {'success': True}
+        'body': json.dumps({'success': True})
     }
