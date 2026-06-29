@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import func2url from '../../../func2url.json'
+import func2url from '../../../backend/func2url.json'
 
 interface Props {
   isActive: boolean
