@@ -20,7 +20,11 @@ def handler(event: dict, context) -> dict:
             'body': ''
         }
 
-    body = json.loads(event.get('body', '{}'))
+    raw_body = event.get('body') or '{}'
+    try:
+        body = json.loads(raw_body)
+    except (ValueError, TypeError):
+        body = {}
     name = body.get('name', '').strip()
     phone = body.get('phone', '').strip()
     description = body.get('description', '').strip()
