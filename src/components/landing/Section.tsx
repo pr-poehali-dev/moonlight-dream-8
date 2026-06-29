@@ -1,9 +1,10 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import Icon from "@/components/ui/icon"
 import type { SectionProps } from "@/types"
 import type { ReactNode } from "react"
 
-export default function Section({ id, title, subtitle, content, isActive, showButton, buttonText, image, background, stats, onButtonClick, children }: SectionProps & { children?: ReactNode; onButtonClick?: () => void }) {
+export default function Section({ id, title, subtitle, content, isActive, showButton, buttonText, image, background, stats, bullets, onButtonClick, children }: SectionProps & { children?: ReactNode; onButtonClick?: () => void }) {
   return (
     <section id={id} className="relative h-screen w-full snap-start flex flex-col justify-center p-8 md:p-16 lg:p-24">
       {background && (
@@ -12,7 +13,7 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/30" />
         </div>
       )}
-      {image && (
+      {image && !bullets && (
         <motion.div
           className="absolute z-10 right-8 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 w-[40%] max-w-md aspect-square rounded-2xl overflow-hidden border border-neutral-700 hidden md:block"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -34,7 +35,7 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
         </motion.div>
       )}
       <motion.h2
-        className="relative z-10 text-4xl md:text-6xl lg:text-[5rem] xl:text-[6rem] font-bold leading-[1.1] tracking-tight max-w-4xl text-white"
+        className="relative z-10 font-heading uppercase text-4xl md:text-6xl lg:text-[5rem] xl:text-[6rem] font-bold leading-[1.05] tracking-tight max-w-4xl text-white"
         initial={{ opacity: 0, y: 50 }}
         animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5 }}
@@ -51,7 +52,7 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
           {content}
         </motion.p>
       )}
-      {image && (
+      {image && !bullets && (
         <motion.div
           className="relative z-10 mt-8 w-full max-w-sm aspect-video rounded-2xl overflow-hidden border border-neutral-700 md:hidden"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -59,6 +60,29 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <img src={image} alt={title} className="w-full h-full object-cover" />
+        </motion.div>
+      )}
+      {bullets && (
+        <motion.div
+          className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mt-8 md:mt-10 max-w-3xl"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          {bullets.map((b) => (
+            <div
+              key={b.title}
+              className="flex gap-4 p-4 md:p-5 rounded-xl border border-neutral-800 bg-white/5 backdrop-blur-sm hover:border-[#FF4D00]/60 transition-colors"
+            >
+              <div className="shrink-0 w-11 h-11 rounded-lg bg-[#FF4D00]/15 flex items-center justify-center">
+                <Icon name={b.icon} size={22} className="text-[#FF4D00]" />
+              </div>
+              <div>
+                <h3 className="font-heading uppercase tracking-wide text-white text-base md:text-lg leading-tight">{b.title}</h3>
+                <p className="text-sm text-neutral-400 mt-1">{b.text}</p>
+              </div>
+            </div>
+          ))}
         </motion.div>
       )}
       {stats && (
@@ -84,10 +108,9 @@ export default function Section({ id, title, subtitle, content, isActive, showBu
           className="relative z-10 mt-12 md:mt-16"
         >
           <Button
-            variant="outline"
             size="lg"
             onClick={onButtonClick}
-            className="text-[#FF4D00] bg-transparent border-[#FF4D00] hover:bg-[#FF4D00] hover:text-black transition-colors"
+            className="font-heading uppercase tracking-wider text-base text-black bg-[#FF4D00] border border-[#FF4D00] hover:bg-[#ff6a2b] hover:text-black transition-colors animate-pulse-glow"
           >
             {buttonText}
           </Button>

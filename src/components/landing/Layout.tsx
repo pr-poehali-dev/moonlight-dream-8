@@ -24,8 +24,8 @@ export default function Layout({ children }: LayoutProps) {
             alt="Логотип"
             className="w-9 h-9 md:w-10 md:h-10 rounded-lg object-cover"
           />
-          <span className="text-white font-semibold text-sm md:text-base tracking-wide">
-            Морозов Сергей Михайлович
+          <span className="font-heading uppercase text-white font-semibold text-sm md:text-base tracking-widest">
+            ГНБ-Самара
           </span>
         </div>
         <a

@@ -5,6 +5,12 @@ export interface StatItem {
   label: string
 }
 
+export interface BulletItem {
+  icon: string
+  title: string
+  text: string
+}
+
 export interface Section {
   id: string
   title: string
@@ -15,6 +21,7 @@ export interface Section {
   image?: string
   background?: string
   stats?: StatItem[]
+  bullets?: BulletItem[]
 }
 
 export interface SectionProps extends Section {

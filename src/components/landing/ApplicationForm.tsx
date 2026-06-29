@@ -90,9 +90,8 @@ export default function ApplicationForm({ isActive }: Props) {
           <Button
             type="submit"
             disabled={status === 'loading'}
-            variant="outline"
             size="lg"
-            className="text-[#FF4D00] bg-transparent border-[#FF4D00] hover:bg-[#FF4D00] hover:text-black transition-colors self-start"
+            className="font-heading uppercase tracking-wider text-base text-black bg-[#FF4D00] border border-[#FF4D00] hover:bg-[#ff6a2b] hover:text-black transition-colors self-start animate-pulse-glow"
           >
             {status === 'loading' ? 'Отправляем...' : 'Оставить заявку'}
           </Button>
