@@ -81,6 +81,12 @@ export default function ApplicationForm({ isActive }: Props) {
           {status === 'error' && (
             <p className="text-red-400 text-sm">Ошибка отправки. Попробуйте ещё раз.</p>
           )}
+          <p className="text-neutral-500 text-sm">
+            Или позвоните напрямую:{' '}
+            <a href="tel:+79277283276" className="text-[#FF4D00] hover:text-white transition-colors">
+              +7 (927) 728-32-76
+            </a>
+          </p>
           <Button
             type="submit"
             disabled={status === 'loading'}
