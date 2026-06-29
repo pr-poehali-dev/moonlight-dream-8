@@ -68,6 +68,10 @@ export default function LandingPage() {
             key={section.id}
             {...section}
             isActive={index === activeSection}
+            onButtonClick={() => {
+              const formIndex = sections.findIndex((s) => s.id === 'join')
+              handleNavClick(formIndex)
+            }}
           >
             {section.id === 'join' && (
               <ApplicationForm isActive={index === activeSection} />

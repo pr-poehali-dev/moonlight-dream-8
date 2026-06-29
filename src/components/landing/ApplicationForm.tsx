@@ -47,13 +47,13 @@ export default function ApplicationForm({ isActive }: Props) {
       transition={{ duration: 0.5, delay: 0.3 }}
     >
       {status === 'success' ? (
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-xl text-white"
         >
-          Заявка отправлена! Мы свяжемся с вами в ближайшее время.
-        </motion.p>
+          <p className="text-xl text-white">Спасибо! Заявка отправлена.</p>
+          <p className="text-lg text-[#FF4D00] mt-2">Перезвоним в течение 15 минут.</p>
+        </motion.div>
       ) : (
         <>
           <Input
